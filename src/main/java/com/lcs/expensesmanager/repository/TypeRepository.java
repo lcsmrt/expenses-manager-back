@@ -4,4 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.lcs.expensesmanager.model.Type;
 
-public interface TypeRepository  extends JpaRepository<Type, Long>{}
+public interface TypeRepository extends JpaRepository<Type, Long> {
+}

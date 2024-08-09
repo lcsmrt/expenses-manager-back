@@ -11,27 +11,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lcs.expensesmanager.model.Item;
-import com.lcs.expensesmanager.repository.ItemRepository;
+import com.lcs.expensesmanager.services.ItemService;
 
 @RestController
 @RequestMapping("/api/expenses-manager/item")
 public class ItemController {
 
 	@Autowired
-	private ItemRepository itemRepository;
+	private ItemService itemService;
 
-	@PostMapping
-	public Item createItem(@RequestBody Item item) {
-		return itemRepository.save(item);
-	}
+	// @PostMapping
+	// public Item createItem(@RequestBody Item item) {
+	// return itemRepository.save(item);
+	// }
 
 	@GetMapping("/{id}")
 	public Item getItem(@PathVariable Long id) {
-		return itemRepository.findById(id).orElse(null);
+		return itemService.findById(id);
 	}
 
-	@GetMapping
-	public List<Item> getItems() {
-		return (List<Item>) itemRepository.findAll();
-	}
+	/*
+	 * @GetMapping public List<Item> getItems() { return (List<Item>)
+	 * itemRepository.findAll(); }
+	 */
 }
