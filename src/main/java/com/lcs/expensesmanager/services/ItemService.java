@@ -1,13 +1,15 @@
 package com.lcs.expensesmanager.services;
 
-import com.lcs.expensesmanager.repository.ItemRepository;
-import com.lcs.expensesmanager.model.Item;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.lcs.expensesmanager.model.Item;
+import com.lcs.expensesmanager.repository.ItemRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
+@Service
 public class ItemService {
 	@Autowired
 	private ItemRepository itemRepository;

@@ -1,5 +1,6 @@
 package com.lcs.expensesmanager.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
@@ -16,11 +17,11 @@ public class Item {
 	private Long id;
 	@ManyToOne
 	@JoinColumn(name = "categoryId")
-	private Category categoryId;
+	private Category category;
 	@ManyToOne
 	@JoinColumn(name = "typeId")
-	private Type typeId;
-	private Double amount;
+	private Type type;
+	private BigDecimal amount;
 	private String description;
 	private String frequency;
 	private String parcelsNumber;
@@ -31,31 +32,27 @@ public class Item {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public Category getCategoryId() {
-		return categoryId;
+		return category;
 	}
 
 	public void setCategoryId(Category categoryId) {
-		this.categoryId = categoryId;
+		this.category = categoryId;
 	}
 
 	public Type getTypeId() {
-		return typeId;
+		return type;
 	}
 
 	public void setTypeId(Type typeId) {
-		this.typeId = typeId;
+		this.type = typeId;
 	}
 
-	public Double getAmount() {
+	public BigDecimal getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Double amount) {
+	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
 
