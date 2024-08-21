@@ -2,7 +2,7 @@ package com.lcs.expensesmanager.model;
 
 import java.math.BigDecimal;
 
-import com.lcs.expensesmanager.forms.CategoryForm;
+import com.lcs.expensesmanager.forms.FinancialTransactionCategoryForm;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,18 +11,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Category")
-public class Category {
+@Table(name = "financial_transaction_categories")
+public class FinancialTransactionCategory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String description;
 	private BigDecimal spendingLimit;
 
-	public Category() {
+	public FinancialTransactionCategory() {
 	}
 
-	public Category(CategoryForm form) {
+	public FinancialTransactionCategory(FinancialTransactionCategoryForm form) {
 		this.description = form.getDescription();
 		this.spendingLimit = form.getSpendingLimit();
 	}

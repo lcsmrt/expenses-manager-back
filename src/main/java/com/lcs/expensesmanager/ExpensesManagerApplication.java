@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ExpensesmanagerApplication {
+public class ExpensesManagerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ExpensesmanagerApplication.class, args);
+		SpringApplication.run(ExpensesManagerApplication.class, args);
 	}
 }

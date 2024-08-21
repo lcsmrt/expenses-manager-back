@@ -1,26 +1,22 @@
 package com.lcs.expensesmanager.model;
 
+import com.lcs.expensesmanager.forms.FinancialTransactionForm;
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-
 @Entity
-public class Item {
+@Table(name = "financial_transactions")
+public class FinancialTransaction {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@ManyToOne
 	@JoinColumn(name = "categoryId")
-	private Category category;
-	@ManyToOne
-	@JoinColumn(name = "typeId")
-	private Type type;
+	private FinancialTransactionCategory category;
+	@Enumerated(EnumType.STRING)
+	private FinancialTransactionType type;
 	private BigDecimal amount;
 	private String description;
 	private String frequency;
@@ -28,23 +24,32 @@ public class Item {
 	private LocalDate startDate;
 	private LocalDate endDate;
 
+	public FinancialTransaction() {
+	}
+
+	public FinancialTransaction(FinancialTransactionForm form) {
+		this.amount = form.getAmount();
+		this.description = form.getDescription();
+		// COMPLETAR
+	}
+
 	public Long getId() {
 		return id;
 	}
 
-	public Category getCategoryId() {
+	public FinancialTransactionCategory getCategoryId() {
 		return category;
 	}
 
-	public void setCategoryId(Category categoryId) {
+	public void setCategoryId(FinancialTransactionCategory categoryId) {
 		this.category = categoryId;
 	}
 
-	public Type getTypeId() {
+	public FinancialTransactionType getTypeId() {
 		return type;
 	}
 
-	public void setTypeId(Type typeId) {
+	public void setTypeId(FinancialTransactionType typeId) {
 		this.type = typeId;
 	}
 

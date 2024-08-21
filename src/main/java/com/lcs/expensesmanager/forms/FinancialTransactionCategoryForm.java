@@ -1,14 +1,15 @@
 package com.lcs.expensesmanager.forms;
 
-import java.math.BigDecimal;
-
-import com.lcs.expensesmanager.model.Category;
-
+import com.lcs.expensesmanager.model.FinancialTransactionCategory;
 import jakarta.validation.constraints.NotBlank;
 
-public class CategoryForm {
+import java.math.BigDecimal;
+
+public class FinancialTransactionCategoryForm {
+
 	@NotBlank(message = "A descrição não pode ser vazia.")
 	private String description;
+
 	private BigDecimal spendingLimit;
 
 	public String getDescription() {
@@ -19,7 +20,7 @@ public class CategoryForm {
 		return spendingLimit;
 	}
 	
-	public Category update(Category category) {
+	public FinancialTransactionCategory update(FinancialTransactionCategory category) {
 		category.setDescription(description);
 		category.setSpendingLimit(spendingLimit);
 		
