@@ -28,9 +28,14 @@ public class FinancialTransaction {
 	}
 
 	public FinancialTransaction(FinancialTransactionForm form) {
+//		this.category = form.getCategoryId();
+		this.type = form.getType();
 		this.amount = form.getAmount();
 		this.description = form.getDescription();
-		// COMPLETAR
+		this.frequency = form.getFrequency();
+		this.parcelsNumber = form.getParcelsNumber();
+		this.startDate = form.getStartDate();
+		this.endDate = form.getEndDate();
 	}
 
 	public Long getId() {
