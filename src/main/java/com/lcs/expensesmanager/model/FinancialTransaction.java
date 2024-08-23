@@ -12,11 +12,14 @@ public class FinancialTransaction {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@ManyToOne
 	@JoinColumn(name = "categoryId")
 	private FinancialTransactionCategory category;
+
 	@Enumerated(EnumType.STRING)
 	private FinancialTransactionType type;
+
 	private BigDecimal amount;
 	private String description;
 	private String frequency;
@@ -27,8 +30,8 @@ public class FinancialTransaction {
 	public FinancialTransaction() {
 	}
 
-	public FinancialTransaction(FinancialTransactionForm form) {
-//		this.category = form.getCategoryId();
+	public FinancialTransaction(FinancialTransactionForm form, FinancialTransactionCategory category) {
+		this.category = category;
 		this.type = form.getType();
 		this.amount = form.getAmount();
 		this.description = form.getDescription();
@@ -42,20 +45,20 @@ public class FinancialTransaction {
 		return id;
 	}
 
-	public FinancialTransactionCategory getCategoryId() {
+	public FinancialTransactionCategory getCategory() {
 		return category;
 	}
 
-	public void setCategoryId(FinancialTransactionCategory categoryId) {
-		this.category = categoryId;
+	public void setCategory(FinancialTransactionCategory category) {
+		this.category = category;
 	}
 
-	public FinancialTransactionType getTypeId() {
+	public FinancialTransactionType getType() {
 		return type;
 	}
 
-	public void setTypeId(FinancialTransactionType typeId) {
-		this.type = typeId;
+	public void setType(FinancialTransactionType type) {
+		this.type = type;
 	}
 
 	public BigDecimal getAmount() {

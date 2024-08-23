@@ -1,16 +1,14 @@
 package com.lcs.expensesmanager.services;
 
-import java.util.List;
-
+import com.lcs.expensesmanager.forms.FinancialTransactionCategoryForm;
+import com.lcs.expensesmanager.model.FinancialTransactionCategory;
+import com.lcs.expensesmanager.repository.FinancialTransactionCategoryRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.lcs.expensesmanager.forms.FinancialTransactionCategoryForm;
-import com.lcs.expensesmanager.model.FinancialTransactionCategory;
-import com.lcs.expensesmanager.repository.FinancialTransactionCategoryRepository;
-
-import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Service
 public class FinancialTransactionCategoryService {
@@ -32,14 +30,18 @@ public class FinancialTransactionCategoryService {
     @Transactional
     public FinancialTransactionCategory save(FinancialTransactionCategoryForm form) {
         FinancialTransactionCategory category = new FinancialTransactionCategory(form);
+
         return financialTransactionCategoryRepository.save(category);
     }
 
     @Transactional
     public FinancialTransactionCategory update(FinancialTransactionCategoryForm form, Long id) {
         FinancialTransactionCategory existingCategory = findById(id);
-        FinancialTransactionCategory updatedCategory = form.update(existingCategory);
-        return financialTransactionCategoryRepository.save(updatedCategory);
+
+        existingCategory.setDescription(form.getDescription());
+        existingCategory.setSpendingLimit(form.getSpendingLimit());
+
+        return financialTransactionCategoryRepository.save(existingCategory);
     }
 
     @Transactional
