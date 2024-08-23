@@ -1,5 +1,6 @@
 package com.lcs.expensesmanager.forms;
 
+import com.lcs.expensesmanager.model.FinancialTransactionCategory;
 import com.lcs.expensesmanager.model.FinancialTransactionType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,7 +10,7 @@ import java.time.LocalDate;
 
 public class FinancialTransactionForm {
 
-    Long categoryId;
+    private FinancialTransactionCategory category;
 
     @NotNull(message = "O tipo de transação não pode ser nulo.")
     private FinancialTransactionType type;
@@ -22,11 +23,12 @@ public class FinancialTransactionForm {
 
     private String frequency;
     private String parcelsNumber;
+
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public Long getCategoryId() {
-        return categoryId;
+    public FinancialTransactionCategory getCategory() {
+        return category;
     }
 
     public FinancialTransactionType getType() {

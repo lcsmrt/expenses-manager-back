@@ -30,8 +30,8 @@ public class FinancialTransaction {
 	public FinancialTransaction() {
 	}
 
-	public FinancialTransaction(FinancialTransactionForm form, FinancialTransactionCategory category) {
-		this.category = category;
+	public FinancialTransaction(FinancialTransactionForm form) {
+		this.category = form.getCategory();
 		this.type = form.getType();
 		this.amount = form.getAmount();
 		this.description = form.getDescription();

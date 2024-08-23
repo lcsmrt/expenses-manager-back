@@ -2,8 +2,8 @@ package com.lcs.expensesmanager.services;
 
 import com.lcs.expensesmanager.forms.FinancialTransactionForm;
 import com.lcs.expensesmanager.model.FinancialTransaction;
-import com.lcs.expensesmanager.model.FinancialTransactionCategory;
 import com.lcs.expensesmanager.repository.FinancialTransactionRepository;
+import com.lcs.expensesmanager.utils.DateUtils;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +20,9 @@ public class FinancialTransactionService {
     @Autowired
     private FinancialTransactionCategoryService categoryService;
 
+    @Autowired
+    private DateUtils dateUtils;
+
     @Transactional(readOnly = true)
     public FinancialTransaction findById(Long id) {
         return financialTransactionRepository.findById(id)
@@ -33,17 +36,17 @@ public class FinancialTransactionService {
 
     @Transactional
     public FinancialTransaction save(FinancialTransactionForm form) {
-        FinancialTransactionCategory category = categoryService.findById(form.getCategoryId());
-        FinancialTransaction financialTransaction = new FinancialTransaction(form, category);
+        FinancialTransaction financialTransaction = new FinancialTransaction(form);
         return financialTransactionRepository.save(financialTransaction);
     }
 
     @Transactional
     public FinancialTransaction update(FinancialTransactionForm form, Long id) {
-        FinancialTransaction existingTransaction = findById(id);
-        FinancialTransactionCategory category = categoryService.findById(form.getCategoryId());
+        dateUtils.checkIfStartDateIsBeforeEndDate(form.getStartDate(), form.getEndDate());
 
-        existingTransaction.setCategory(category);
+        FinancialTransaction existingTransaction = findById(id);
+
+        existingTransaction.setCategory(form.getCategory());
         existingTransaction.setType(form.getType());
         existingTransaction.setAmount(form.getAmount());
         existingTransaction.setDescription(form.getDescription());
