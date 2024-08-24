@@ -1,8 +1,8 @@
 package com.lcs.expensesmanager.services;
 
 import com.lcs.expensesmanager.forms.FinancialTransactionForm;
-import com.lcs.expensesmanager.model.FinancialTransaction;
-import com.lcs.expensesmanager.repository.FinancialTransactionRepository;
+import com.lcs.expensesmanager.models.FinancialTransaction;
+import com.lcs.expensesmanager.repositories.FinancialTransactionRepository;
 import com.lcs.expensesmanager.utils.DateUtils;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class FinancialTransactionService {
     @Transactional(readOnly = true)
     public FinancialTransaction findById(Long id) {
         return financialTransactionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Item não encontrado para o id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Transação não encontrado para o id: " + id));
     }
 
     @Transactional(readOnly = true)
@@ -35,13 +35,14 @@ public class FinancialTransactionService {
     }
 
     @Transactional
-    public FinancialTransaction save(FinancialTransactionForm form) {
+    public FinancialTransaction create(FinancialTransactionForm form) {
         FinancialTransaction financialTransaction = new FinancialTransaction(form);
+
         return financialTransactionRepository.save(financialTransaction);
     }
 
     @Transactional
-    public FinancialTransaction update(FinancialTransactionForm form, Long id) {
+    public FinancialTransaction update(Long id, FinancialTransactionForm form) {
         dateUtils.checkIfStartDateIsBeforeEndDate(form.getStartDate(), form.getEndDate());
 
         FinancialTransaction existingTransaction = findById(id);

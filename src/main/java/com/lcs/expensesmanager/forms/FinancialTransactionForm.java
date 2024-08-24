@@ -1,7 +1,7 @@
 package com.lcs.expensesmanager.forms;
 
-import com.lcs.expensesmanager.model.FinancialTransactionCategory;
-import com.lcs.expensesmanager.model.FinancialTransactionType;
+import com.lcs.expensesmanager.models.FinancialTransactionCategory;
+import com.lcs.expensesmanager.models.FinancialTransactionType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

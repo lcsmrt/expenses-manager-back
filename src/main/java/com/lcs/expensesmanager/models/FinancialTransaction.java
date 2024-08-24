@@ -1,4 +1,4 @@
-package com.lcs.expensesmanager.model;
+package com.lcs.expensesmanager.models;
 
 import com.lcs.expensesmanager.forms.FinancialTransactionForm;
 import jakarta.persistence.*;

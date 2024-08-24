@@ -1,7 +1,7 @@
-package com.lcs.expensesmanager.controller;
+package com.lcs.expensesmanager.controllers;
 
 import com.lcs.expensesmanager.forms.FinancialTransactionForm;
-import com.lcs.expensesmanager.model.FinancialTransaction;
+import com.lcs.expensesmanager.models.FinancialTransaction;
 import com.lcs.expensesmanager.services.FinancialTransactionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +31,13 @@ public class FinancialTransactionController {
 
 	@PostMapping
 	public ResponseEntity<FinancialTransaction> createTransaction(@RequestBody @Valid FinancialTransactionForm form) {
-		FinancialTransaction transaction = financialTransactionService.save(form);
-		return ResponseEntity.status(201).body(transaction);
+		FinancialTransaction createdTransaction = financialTransactionService.create(form);
+		return ResponseEntity.status(201).body(createdTransaction);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<FinancialTransaction> updateCategory(@PathVariable Long id, @RequestBody FinancialTransactionForm form) {
-		FinancialTransaction updatedTransaction = financialTransactionService.update(form, id);
+	public ResponseEntity<FinancialTransaction> updateCategory(@PathVariable Long id, @RequestBody @Valid FinancialTransactionForm form) {
+		FinancialTransaction updatedTransaction = financialTransactionService.update(id, form);
 		return ResponseEntity.ok(updatedTransaction);
 	}
 
