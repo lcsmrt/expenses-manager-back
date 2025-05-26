@@ -1,7 +1,7 @@
-package com.lcs.expensesmanager.forms;
+package com.lcs.finsight.forms;
 
-import com.lcs.expensesmanager.models.FinancialTransactionCategory;
-import com.lcs.expensesmanager.models.FinancialTransactionType;
+import com.lcs.finsight.models.FinancialTransactionCategory;
+import com.lcs.finsight.models.FinancialTransactionType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -22,7 +22,7 @@ public class FinancialTransactionForm {
     private String description;
 
     private String frequency;
-    private String parcelsNumber;
+    private Integer parcelsNumber;
 
     private LocalDate startDate;
     private LocalDate endDate;
@@ -47,7 +47,7 @@ public class FinancialTransactionForm {
         return frequency;
     }
 
-    public String getParcelsNumber() {
+    public Integer getParcelsNumber() {
         return parcelsNumber;
     }
 

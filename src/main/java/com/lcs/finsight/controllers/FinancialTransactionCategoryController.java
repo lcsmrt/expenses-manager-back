@@ -1,8 +1,8 @@
-package com.lcs.expensesmanager.controllers;
+package com.lcs.finsight.controllers;
 
-import com.lcs.expensesmanager.forms.FinancialTransactionCategoryForm;
-import com.lcs.expensesmanager.models.FinancialTransactionCategory;
-import com.lcs.expensesmanager.services.FinancialTransactionCategoryService;
+import com.lcs.finsight.forms.FinancialTransactionCategoryForm;
+import com.lcs.finsight.models.FinancialTransactionCategory;
+import com.lcs.finsight.services.FinancialTransactionCategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

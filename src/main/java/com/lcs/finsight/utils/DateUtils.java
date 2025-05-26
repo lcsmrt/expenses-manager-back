@@ -1,4 +1,4 @@
-package com.lcs.expensesmanager.utils;
+package com.lcs.finsight.utils;
 
 import org.springframework.stereotype.Component;
 

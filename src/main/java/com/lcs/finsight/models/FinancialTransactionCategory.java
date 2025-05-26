@@ -1,6 +1,6 @@
-package com.lcs.expensesmanager.models;
+package com.lcs.finsight.models;
 
-import com.lcs.expensesmanager.forms.FinancialTransactionCategoryForm;
+import com.lcs.finsight.forms.FinancialTransactionCategoryForm;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

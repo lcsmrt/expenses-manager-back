@@ -1,8 +1,8 @@
-package com.lcs.expensesmanager.services;
+package com.lcs.finsight.services;
 
-import com.lcs.expensesmanager.forms.FinancialTransactionCategoryForm;
-import com.lcs.expensesmanager.models.FinancialTransactionCategory;
-import com.lcs.expensesmanager.repositories.FinancialTransactionCategoryRepository;
+import com.lcs.finsight.forms.FinancialTransactionCategoryForm;
+import com.lcs.finsight.models.FinancialTransactionCategory;
+import com.lcs.finsight.repositories.FinancialTransactionCategoryRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

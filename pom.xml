@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.lcs</groupId>
-	<artifactId>expensesmanager</artifactId>
+	<artifactId>finsight</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>expensesmanager</name>
 	<description>API for an expenses management application.</description>

@@ -1,6 +1,6 @@
-package com.lcs.expensesmanager.models;
+package com.lcs.finsight.models;
 
-import com.lcs.expensesmanager.forms.FinancialTransactionForm;
+import com.lcs.finsight.forms.FinancialTransactionForm;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -23,7 +23,7 @@ public class FinancialTransaction {
 	private BigDecimal amount;
 	private String description;
 	private String frequency;
-	private String parcelsNumber;
+	private Integer parcelsNumber;
 	private LocalDate startDate;
 	private LocalDate endDate;
 
@@ -85,11 +85,11 @@ public class FinancialTransaction {
 		this.frequency = frequency;
 	}
 
-	public String getParcelsNumber() {
+	public Integer getParcelsNumber() {
 		return parcelsNumber;
 	}
 
-	public void setParcelsNumber(String parcelsNumber) {
+	public void setParcelsNumber(Integer parcelsNumber) {
 		this.parcelsNumber = parcelsNumber;
 	}
 

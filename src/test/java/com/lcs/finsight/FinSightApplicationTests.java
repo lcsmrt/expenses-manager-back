@@ -1,10 +1,10 @@
-package com.lcs.expensesmanager;
+package com.lcs.finsight;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ExpensesmanagerApplicationTests {
+class FinSightApplicationTests {
 
 	@Test
 	void contextLoads() {

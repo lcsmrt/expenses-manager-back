@@ -1,4 +1,4 @@
-package com.lcs.expensesmanager.forms;
+package com.lcs.finsight.forms;
 
 import jakarta.validation.constraints.NotBlank;
 
