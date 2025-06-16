@@ -1,11 +1,11 @@
 package com.lcs.finsight.services;
 
-import com.lcs.finsight.forms.FinancialTransactionForm;
+import com.lcs.finsight.dtos.request.FinancialTransactionRequestDTO;
 import com.lcs.finsight.models.FinancialTransaction;
+import com.lcs.finsight.models.FinancialTransactionCategory;
 import com.lcs.finsight.repositories.FinancialTransactionRepository;
 import com.lcs.finsight.utils.DateUtils;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,19 +14,24 @@ import java.util.List;
 @Service
 public class FinancialTransactionService {
 
-    @Autowired
-    private FinancialTransactionRepository financialTransactionRepository;
+    private final FinancialTransactionRepository financialTransactionRepository;
+    private final FinancialTransactionCategoryService financialTransactionCategoryService;
+    private final DateUtils dateUtils;
 
-    @Autowired
-    private FinancialTransactionCategoryService categoryService;
-
-    @Autowired
-    private DateUtils dateUtils;
+    public FinancialTransactionService(
+            FinancialTransactionRepository financialTransactionRepository,
+            FinancialTransactionCategoryService financialTransactionCategoryService,
+            DateUtils dateUtils
+    ) {
+        this.financialTransactionRepository = financialTransactionRepository;
+        this.financialTransactionCategoryService = financialTransactionCategoryService;
+        this.dateUtils = dateUtils;
+    }
 
     @Transactional(readOnly = true)
     public FinancialTransaction findById(Long id) {
         return financialTransactionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Transação não encontrado para o id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Transação não encontrada para o id: " + id));
     }
 
     @Transactional(readOnly = true)
@@ -35,26 +40,38 @@ public class FinancialTransactionService {
     }
 
     @Transactional
-    public FinancialTransaction create(FinancialTransactionForm form) {
-        FinancialTransaction financialTransaction = new FinancialTransaction(form);
+    public FinancialTransaction create(FinancialTransactionRequestDTO dto) {
+        FinancialTransactionCategory category = financialTransactionCategoryService.findById(dto.getCategoryId());
+
+        FinancialTransaction financialTransaction = new FinancialTransaction();
+
+        financialTransaction.setCategory(category);
+        financialTransaction.setType(dto.getType());
+        financialTransaction.setAmount(dto.getAmount());
+        financialTransaction.setDescription(dto.getDescription());
+        financialTransaction.setFrequency(dto.getFrequency());
+        financialTransaction.setParcelsNumber(dto.getParcelsNumber());
+        financialTransaction.setStartDate(dto.getStartDate());
+        financialTransaction.setEndDate(dto.getEndDate());
 
         return financialTransactionRepository.save(financialTransaction);
     }
 
     @Transactional
-    public FinancialTransaction update(Long id, FinancialTransactionForm form) {
-        dateUtils.checkIfStartDateIsBeforeEndDate(form.getStartDate(), form.getEndDate());
+    public FinancialTransaction update(Long id, FinancialTransactionRequestDTO dto) {
+        dateUtils.checkIfStartDateIsBeforeEndDate(dto.getStartDate(), dto.getEndDate());
 
         FinancialTransaction existingTransaction = findById(id);
+        FinancialTransactionCategory category = financialTransactionCategoryService.findById(dto.getCategoryId());
 
-        existingTransaction.setCategory(form.getCategory());
-        existingTransaction.setType(form.getType());
-        existingTransaction.setAmount(form.getAmount());
-        existingTransaction.setDescription(form.getDescription());
-        existingTransaction.setFrequency(form.getFrequency());
-        existingTransaction.setParcelsNumber(form.getParcelsNumber());
-        existingTransaction.setStartDate(form.getStartDate());
-        existingTransaction.setEndDate(form.getEndDate());
+        existingTransaction.setCategory(category);
+        existingTransaction.setType(dto.getType());
+        existingTransaction.setAmount(dto.getAmount());
+        existingTransaction.setDescription(dto.getDescription());
+        existingTransaction.setFrequency(dto.getFrequency());
+        existingTransaction.setParcelsNumber(dto.getParcelsNumber());
+        existingTransaction.setStartDate(dto.getStartDate());
+        existingTransaction.setEndDate(dto.getEndDate());
 
         return financialTransactionRepository.save(existingTransaction);
     }

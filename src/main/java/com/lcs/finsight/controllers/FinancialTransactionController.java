@@ -1,21 +1,23 @@
 package com.lcs.finsight.controllers;
 
-import com.lcs.finsight.forms.FinancialTransactionForm;
+import com.lcs.finsight.dtos.request.FinancialTransactionRequestDTO;
 import com.lcs.finsight.models.FinancialTransaction;
 import com.lcs.finsight.services.FinancialTransactionService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/expenses-manager/financial-transaction")
+@RequestMapping("/api/finsight/financial-transaction")
 public class FinancialTransactionController {
-	
-	@Autowired
-	private FinancialTransactionService financialTransactionService;
+
+	private final FinancialTransactionService financialTransactionService;
+
+	public FinancialTransactionController(FinancialTransactionService financialTransactionService) {
+		this.financialTransactionService = financialTransactionService;
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<FinancialTransaction> getTransaction(@PathVariable Long id) {
@@ -30,14 +32,14 @@ public class FinancialTransactionController {
 	}
 
 	@PostMapping
-	public ResponseEntity<FinancialTransaction> createTransaction(@RequestBody @Valid FinancialTransactionForm form) {
-		FinancialTransaction createdTransaction = financialTransactionService.create(form);
+	public ResponseEntity<FinancialTransaction> createTransaction(@RequestBody @Valid FinancialTransactionRequestDTO dto) {
+		FinancialTransaction createdTransaction = financialTransactionService.create(dto);
 		return ResponseEntity.status(201).body(createdTransaction);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<FinancialTransaction> updateCategory(@PathVariable Long id, @RequestBody @Valid FinancialTransactionForm form) {
-		FinancialTransaction updatedTransaction = financialTransactionService.update(id, form);
+	public ResponseEntity<FinancialTransaction> updateCategory(@PathVariable Long id, @RequestBody @Valid FinancialTransactionRequestDTO dto) {
+		FinancialTransaction updatedTransaction = financialTransactionService.update(id, dto);
 		return ResponseEntity.ok(updatedTransaction);
 	}
 

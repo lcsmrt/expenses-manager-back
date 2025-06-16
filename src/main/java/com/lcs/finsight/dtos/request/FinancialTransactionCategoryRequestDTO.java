@@ -1,10 +1,10 @@
-package com.lcs.finsight.forms;
+package com.lcs.finsight.dtos.request;
 
 import jakarta.validation.constraints.NotBlank;
 
 import java.math.BigDecimal;
 
-public class FinancialTransactionCategoryForm {
+public class FinancialTransactionCategoryRequestDTO {
 
 	@NotBlank(message = "A descrição não pode ser vazia.")
 	private String description;

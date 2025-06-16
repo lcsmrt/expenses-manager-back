@@ -1,48 +1,50 @@
 package com.lcs.finsight.controllers;
 
-import com.lcs.finsight.forms.FinancialTransactionCategoryForm;
+import com.lcs.finsight.dtos.request.FinancialTransactionCategoryRequestDTO;
 import com.lcs.finsight.models.FinancialTransactionCategory;
 import com.lcs.finsight.services.FinancialTransactionCategoryService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/expenses-manager/financial-transaction-category")
+@RequestMapping("/api/finsight/financial-transaction-category")
 public class FinancialTransactionCategoryController {
 
-    @Autowired
-    private FinancialTransactionCategoryService financialTransactionCategoryService;
+    private final FinancialTransactionCategoryService categoryService;
+
+    public FinancialTransactionCategoryController(FinancialTransactionCategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<FinancialTransactionCategory> getCategory(@PathVariable Long id) {
-        return ResponseEntity.ok(financialTransactionCategoryService.findById(id));
+        return ResponseEntity.ok(categoryService.findById(id));
     }
 
     @GetMapping
     public ResponseEntity<List<FinancialTransactionCategory>> getAllCategories() {
-        List<FinancialTransactionCategory> categories = financialTransactionCategoryService.findAll();
+        List<FinancialTransactionCategory> categories = categoryService.findAll();
         return ResponseEntity.ok(categories);
     }
 
     @PostMapping
-    public ResponseEntity<FinancialTransactionCategory> createCategory(@RequestBody @Valid FinancialTransactionCategoryForm categoryForm) {
-        FinancialTransactionCategory createdCategory = financialTransactionCategoryService.create(categoryForm);
+    public ResponseEntity<FinancialTransactionCategory> createCategory(@RequestBody @Valid FinancialTransactionCategoryRequestDTO dto) {
+        FinancialTransactionCategory createdCategory = categoryService.create(dto);
         return ResponseEntity.status(201).body(createdCategory);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FinancialTransactionCategory> updateCategory(@PathVariable Long id, @RequestBody @Valid FinancialTransactionCategoryForm categoryForm) {
-        FinancialTransactionCategory updatedCategory = financialTransactionCategoryService.update(id, categoryForm);
+    public ResponseEntity<FinancialTransactionCategory> updateCategory(@PathVariable Long id, @RequestBody @Valid FinancialTransactionCategoryRequestDTO dto) {
+        FinancialTransactionCategory updatedCategory = categoryService.update(id, dto);
         return ResponseEntity.ok(updatedCategory);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
-        financialTransactionCategoryService.delete(id);
+        categoryService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

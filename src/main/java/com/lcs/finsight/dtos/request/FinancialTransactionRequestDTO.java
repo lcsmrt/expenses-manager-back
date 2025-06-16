@@ -1,6 +1,5 @@
-package com.lcs.finsight.forms;
+package com.lcs.finsight.dtos.request;
 
-import com.lcs.finsight.models.FinancialTransactionCategory;
 import com.lcs.finsight.models.FinancialTransactionType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,9 +7,10 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class FinancialTransactionForm {
+public class FinancialTransactionRequestDTO {
 
-    private FinancialTransactionCategory category;
+    @NotNull(message = "O ID da categoria não pode ser nulo.")
+    private Long categoryId;
 
     @NotNull(message = "O tipo de transação não pode ser nulo.")
     private FinancialTransactionType type;
@@ -27,8 +27,8 @@ public class FinancialTransactionForm {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public FinancialTransactionCategory getCategory() {
-        return category;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
     public FinancialTransactionType getType() {
