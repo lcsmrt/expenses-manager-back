@@ -1,8 +1,9 @@
 package com.lcs.finsight.controllers;
 
-import com.lcs.finsight.dtos.request.FinancialTransactionCategoryRequestDTO;
+import com.lcs.finsight.dtos.request.FinancialTransactionCategoryRequestDto;
 import com.lcs.finsight.models.FinancialTransactionCategory;
 import com.lcs.finsight.services.FinancialTransactionCategoryService;
+import com.lcs.finsight.utils.ApiRoutes;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/finsight/financial-transaction-category")
+@RequestMapping(ApiRoutes.FINANCIAL_TRANSACTION_CATEGORY)
 public class FinancialTransactionCategoryController {
 
     private final FinancialTransactionCategoryService categoryService;
@@ -31,13 +32,13 @@ public class FinancialTransactionCategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<FinancialTransactionCategory> createCategory(@RequestBody @Valid FinancialTransactionCategoryRequestDTO dto) {
+    public ResponseEntity<FinancialTransactionCategory> createCategory(@RequestBody @Valid FinancialTransactionCategoryRequestDto dto) {
         FinancialTransactionCategory createdCategory = categoryService.create(dto);
         return ResponseEntity.status(201).body(createdCategory);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FinancialTransactionCategory> updateCategory(@PathVariable Long id, @RequestBody @Valid FinancialTransactionCategoryRequestDTO dto) {
+    public ResponseEntity<FinancialTransactionCategory> updateCategory(@PathVariable Long id, @RequestBody @Valid FinancialTransactionCategoryRequestDto dto) {
         FinancialTransactionCategory updatedCategory = categoryService.update(id, dto);
         return ResponseEntity.ok(updatedCategory);
     }

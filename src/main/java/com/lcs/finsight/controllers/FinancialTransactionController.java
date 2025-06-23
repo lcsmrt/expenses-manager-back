@@ -1,8 +1,9 @@
 package com.lcs.finsight.controllers;
 
-import com.lcs.finsight.dtos.request.FinancialTransactionRequestDTO;
+import com.lcs.finsight.dtos.request.FinancialTransactionRequestDto;
 import com.lcs.finsight.models.FinancialTransaction;
 import com.lcs.finsight.services.FinancialTransactionService;
+import com.lcs.finsight.utils.ApiRoutes;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/finsight/financial-transaction")
+@RequestMapping(ApiRoutes.FINANCIAL_TRANSACTION)
 public class FinancialTransactionController {
 
 	private final FinancialTransactionService financialTransactionService;
@@ -32,13 +33,13 @@ public class FinancialTransactionController {
 	}
 
 	@PostMapping
-	public ResponseEntity<FinancialTransaction> createTransaction(@RequestBody @Valid FinancialTransactionRequestDTO dto) {
+	public ResponseEntity<FinancialTransaction> createTransaction(@RequestBody @Valid FinancialTransactionRequestDto dto) {
 		FinancialTransaction createdTransaction = financialTransactionService.create(dto);
 		return ResponseEntity.status(201).body(createdTransaction);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<FinancialTransaction> updateCategory(@PathVariable Long id, @RequestBody @Valid FinancialTransactionRequestDTO dto) {
+	public ResponseEntity<FinancialTransaction> updateCategory(@PathVariable Long id, @RequestBody @Valid FinancialTransactionRequestDto dto) {
 		FinancialTransaction updatedTransaction = financialTransactionService.update(id, dto);
 		return ResponseEntity.ok(updatedTransaction);
 	}

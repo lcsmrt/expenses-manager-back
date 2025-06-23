@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class FinancialTransactionRequestDTO {
+public class FinancialTransactionRequestDto {
 
     @NotNull(message = "O ID da categoria não pode ser nulo.")
     private Long categoryId;

@@ -1,9 +1,9 @@
 package com.lcs.finsight.dtos.response;
 
-public class AuthResponseDTO {
+public class AuthenticationResponseDto {
     private final String token;
 
-    public AuthResponseDTO(String token) {
+    public AuthenticationResponseDto(String token) {
         this.token = token;
     }
 

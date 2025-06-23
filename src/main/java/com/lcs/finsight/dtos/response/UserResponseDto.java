@@ -1,14 +1,16 @@
 package com.lcs.finsight.dtos.response;
 
-public class UserResponseDTO {
+import com.lcs.finsight.models.User;
+
+public class UserResponseDto {
     private final Long id;
     private final String name;
     private final String email;
 
-    public UserResponseDTO(Long id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
+    public UserResponseDto(User user) {
+        this.id = user.getId();
+        this.name = user.getName();
+        this.email = user.getEmail();
     }
 
     public Long getId() {

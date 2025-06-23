@@ -1,6 +1,6 @@
 package com.lcs.finsight.services;
 
-import com.lcs.finsight.dtos.request.FinancialTransactionCategoryRequestDTO;
+import com.lcs.finsight.dtos.request.FinancialTransactionCategoryRequestDto;
 import com.lcs.finsight.models.FinancialTransactionCategory;
 import com.lcs.finsight.repositories.FinancialTransactionCategoryRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -30,7 +30,7 @@ public class FinancialTransactionCategoryService {
     }
 
     @Transactional
-    public FinancialTransactionCategory create(FinancialTransactionCategoryRequestDTO dto) {
+    public FinancialTransactionCategory create(FinancialTransactionCategoryRequestDto dto) {
         FinancialTransactionCategory category = new FinancialTransactionCategory();
 
         category.setDescription(dto.getDescription());
@@ -40,7 +40,7 @@ public class FinancialTransactionCategoryService {
     }
 
     @Transactional
-    public FinancialTransactionCategory update(Long id, FinancialTransactionCategoryRequestDTO dto) {
+    public FinancialTransactionCategory update(Long id, FinancialTransactionCategoryRequestDto dto) {
         FinancialTransactionCategory existingCategory = findById(id);
 
         existingCategory.setDescription(dto.getDescription());

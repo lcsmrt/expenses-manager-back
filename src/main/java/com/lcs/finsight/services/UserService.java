@@ -1,7 +1,7 @@
 package com.lcs.finsight.services;
 
-import com.lcs.finsight.dtos.request.UserRequestDTO;
-import com.lcs.finsight.dtos.response.UserResponseDTO;
+import com.lcs.finsight.dtos.request.UserRequestDto;
+import com.lcs.finsight.dtos.response.UserResponseDto;
 import com.lcs.finsight.models.User;
 import com.lcs.finsight.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -22,6 +22,8 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+
     @Transactional(readOnly = true)
     public User findById(Long id) {
         return userRepository.findById(id)
@@ -34,25 +36,28 @@ public class UserService {
     }
 
     @Transactional
-    public User create(UserRequestDTO dto) {
+    public User create(UserRequestDto dto) {
         User user = new User();
 
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
 
-        String encryptedPassword = new BCryptPasswordEncoder().encode(dto.getPassword());
+
+        String encryptedPassword = encoder.encode(dto.getPassword());
         user.setPassword(encryptedPassword);
 
         return userRepository.save(user);
     }
 
     @Transactional
-    public User update(Long id, UserRequestDTO dto) {
+    public User update(Long id, UserRequestDto dto) {
         User existingUser = findById(id);
 
         existingUser.setName(dto.getName());
         existingUser.setEmail(dto.getEmail());
-        existingUser.setPassword(dto.getPassword());
+
+        String encryptedPassword = encoder.encode(dto.getPassword());
+        existingUser.setPassword(encryptedPassword);
 
         return userRepository.save(existingUser);
     }
@@ -62,8 +67,8 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public UserResponseDTO mapToResponseDTO(User user) {
-        return new UserResponseDTO(user.getId(), user.getName(), user.getEmail());
+    public UserResponseDto mapToResponseDTO(User user) {
+        return new UserResponseDto(user);
     }
 
 }

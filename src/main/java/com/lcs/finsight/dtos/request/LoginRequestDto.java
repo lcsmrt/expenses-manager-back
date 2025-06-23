@@ -2,7 +2,7 @@ package com.lcs.finsight.dtos.request;
 
 import jakarta.validation.constraints.NotBlank;
 
-public class LoginRequestDTO {
+public class LoginRequestDto {
 
     @NotBlank(message = "O email do usuário não pode ser vazio.")
     private String email;

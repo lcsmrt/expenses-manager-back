@@ -1,6 +1,6 @@
 package com.lcs.finsight.services;
 
-import com.lcs.finsight.dtos.request.FinancialTransactionRequestDTO;
+import com.lcs.finsight.dtos.request.FinancialTransactionRequestDto;
 import com.lcs.finsight.models.FinancialTransaction;
 import com.lcs.finsight.models.FinancialTransactionCategory;
 import com.lcs.finsight.repositories.FinancialTransactionRepository;
@@ -40,7 +40,7 @@ public class FinancialTransactionService {
     }
 
     @Transactional
-    public FinancialTransaction create(FinancialTransactionRequestDTO dto) {
+    public FinancialTransaction create(FinancialTransactionRequestDto dto) {
         FinancialTransactionCategory category = financialTransactionCategoryService.findById(dto.getCategoryId());
 
         FinancialTransaction financialTransaction = new FinancialTransaction();
@@ -58,7 +58,7 @@ public class FinancialTransactionService {
     }
 
     @Transactional
-    public FinancialTransaction update(Long id, FinancialTransactionRequestDTO dto) {
+    public FinancialTransaction update(Long id, FinancialTransactionRequestDto dto) {
         dateUtils.checkIfStartDateIsBeforeEndDate(dto.getStartDate(), dto.getEndDate());
 
         FinancialTransaction existingTransaction = findById(id);
