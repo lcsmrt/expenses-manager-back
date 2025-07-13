@@ -1,11 +1,11 @@
 package com.lcs.finsight.services;
 
 import com.lcs.finsight.dtos.request.FinancialTransactionRequestDto;
+import com.lcs.finsight.exceptions.FinancialTransactionExceptions;
 import com.lcs.finsight.models.FinancialTransaction;
 import com.lcs.finsight.models.FinancialTransactionCategory;
 import com.lcs.finsight.repositories.FinancialTransactionRepository;
 import com.lcs.finsight.utils.DateUtils;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +31,7 @@ public class FinancialTransactionService {
     @Transactional(readOnly = true)
     public FinancialTransaction findById(Long id) {
         return financialTransactionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Transação não encontrada para o id: " + id));
+                .orElseThrow(() -> new FinancialTransactionExceptions.FinancialTransactionNotFoundException(id));
     }
 
     @Transactional(readOnly = true)

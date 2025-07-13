@@ -1,9 +1,9 @@
 package com.lcs.finsight.services;
 
 import com.lcs.finsight.dtos.request.FinancialTransactionCategoryRequestDto;
+import com.lcs.finsight.exceptions.FinancialTransactionCategoryExceptions;
 import com.lcs.finsight.models.FinancialTransactionCategory;
 import com.lcs.finsight.repositories.FinancialTransactionCategoryRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +21,7 @@ public class FinancialTransactionCategoryService {
     @Transactional(readOnly = true)
     public FinancialTransactionCategory findById(Long id) {
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada para o id: " + id));
+                .orElseThrow(() -> new FinancialTransactionCategoryExceptions.FinancialTransactionCategoryNotFoundException(id));
     }
 
     @Transactional(readOnly = true)
