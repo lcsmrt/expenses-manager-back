@@ -13,4 +13,10 @@ public class UserExceptions {
             super("O e-mail " + email + " já está em uso.");
         }
     }
+
+    public static class UsernameNotFoundException extends RuntimeException {
+        public UsernameNotFoundException(String email) {
+            super("Usuário não encontrado para o email " + email + " .");
+        }
+    }
 }

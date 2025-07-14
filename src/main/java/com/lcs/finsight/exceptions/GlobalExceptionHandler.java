@@ -14,7 +14,6 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @ControllerAdvice
@@ -30,9 +29,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     ) {
         List<FieldErrorDto> errors = exception.getBindingResult().getFieldErrors().stream().map(error -> new FieldErrorDto(error.getField(), error.getDefaultMessage())).toList();
         ErrorResponseDto errorResponse = new ErrorResponseDto(
-                LocalDateTime.now(),
-                HttpStatus.BAD_REQUEST.value(),
-                "Erro de validação dos campos.",
+                "Erro de validação.",
                 ((ServletWebRequest) request).getRequest().getRequestURI(),
                 errors
         );
@@ -43,12 +40,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     // AUTENTICAÇÃO (Spring Security)
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ErrorResponseDto> handleBadCredentials(
-            BadCredentialsException ex,
+            BadCredentialsException exception,
             HttpServletRequest request
     ) {
         ErrorResponseDto errorResponse = new ErrorResponseDto(
-                LocalDateTime.now(),
-                HttpStatus.UNAUTHORIZED.value(),
                 "Usuário ou senha inválidos.",
                 request.getRequestURI()
         );
@@ -56,17 +51,39 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     // USUÁRIO
+    @ExceptionHandler(UserExceptions.UserNotFoundException.class)
+    private ResponseEntity<ErrorResponseDto> handleUserNotFound(
+            UserExceptions.UserNotFoundException exception,
+            HttpServletRequest request
+    ) {
+        ErrorResponseDto errorResponse = new ErrorResponseDto(
+                exception.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
     @ExceptionHandler(UserExceptions.EmailAlreadyUsedException.class)
     private ResponseEntity<ErrorResponseDto> handleEmailAlreadyUsed(
             UserExceptions.EmailAlreadyUsedException exception,
             HttpServletRequest request
     ) {
         ErrorResponseDto errorResponse = new ErrorResponseDto(
-                LocalDateTime.now(),
-                HttpStatus.FORBIDDEN.value(),
                 exception.getMessage(),
                 request.getRequestURI()
         );
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse);
+    }
+
+    @ExceptionHandler(UserExceptions.UsernameNotFoundException.class)
+    private ResponseEntity<ErrorResponseDto> handleUsernameNotFound(
+            UserExceptions.UsernameNotFoundException exception,
+            HttpServletRequest request
+    ) {
+        ErrorResponseDto errorResponse = new ErrorResponseDto(
+                exception.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 }
