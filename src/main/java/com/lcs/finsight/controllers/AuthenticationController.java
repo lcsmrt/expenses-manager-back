@@ -8,12 +8,15 @@ import com.lcs.finsight.repositories.UserRepository;
 import com.lcs.finsight.services.AuthenticationService;
 import com.lcs.finsight.services.UserService;
 import com.lcs.finsight.utils.ApiRoutes;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "Autenticação")
 @RestController
 @RequestMapping(ApiRoutes.AUTH)
 public class AuthenticationController {
@@ -26,6 +29,7 @@ public class AuthenticationController {
         this.userService = userService;
     }
 
+    @Operation(summary = "Autentica um usuário")
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponseDto> login(@RequestBody @Valid LoginRequestDto dto) {
         String token = authenticationService.authenticate(dto);
@@ -33,6 +37,7 @@ public class AuthenticationController {
         return  ResponseEntity.ok(new AuthenticationResponseDto(token));
     }
 
+    @Operation(summary = "Retorna os dados do usuário autenticado")
     @GetMapping("/profile")
     public ResponseEntity<UserResponseDto> getUser(@AuthenticationPrincipal UserDetails userDetails) {
         User user = userService.findByEmail(userDetails.getUsername());
